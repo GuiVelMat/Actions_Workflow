@@ -11,7 +11,7 @@ function handler(req, res) {
     case "DELETE":
       return deleteAllUsers();
     default:
-      return res.status(405).end(`Method ${req.method} Not Allowed`)
+      return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 
   function getUsers() {
