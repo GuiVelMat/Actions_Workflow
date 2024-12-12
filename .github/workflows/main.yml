@@ -34,6 +34,6 @@ jobs:
   #       - run: echo "Test de Cypress completado" > result.txt
         
   #       - uses: actions/upload-artifact@v2
-        with:
-          name: cypress-result
-          path: result.txt
+        # with:
+        #   name: cypress-result
+        #   path: result.txt
