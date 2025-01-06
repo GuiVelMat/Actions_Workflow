@@ -1,0 +1,9 @@
+name: "Update README with Badge"
+description: "Modifica el archivo README.md añadiendo un badge basado en el resultado de Cypress."
+inputs:
+  outcome:
+    description: "El resultado de Cypress ('success' o 'failure')."
+    required: true
+runs:
+  using: "node16"
+  main: "index.js"

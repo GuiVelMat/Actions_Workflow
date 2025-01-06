@@ -1,0 +1,9 @@
+{
+    "name": "update-readme-badge",
+    "version": "1.0.0",
+    "description": "Action para actualizar el README.md con un badge basado en los resultados de Cypress.",
+    "main": "index.js",
+    "dependencies": {
+        "@actions/core": "^1.10.0"
+    }
+}
