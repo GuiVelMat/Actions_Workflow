@@ -55,16 +55,23 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: Cypress Results
-          path: result.txt
+          path: result.zip  # Se descargará como un archivo ZIP
 
-      # Leer resultado y generar output
+      # Descomprimir el archivo ZIP
+      - run: |
+          unzip result.zip -d result  # Extraer el contenido del ZIP a la carpeta result
+
+      # Verificar el contenido del directorio descomprimido
+      - run: ls -l result  # Esto listará los archivos dentro de la carpeta 'result'
+
+      # Leer el archivo result.txt y generar el output
       - id: generate_output
         run: |
-          OUTCOME=$(cat result.txt)
+          OUTCOME=$(cat result/result.txt)  # Asegúrate de que el archivo se llama result.txt
           echo "::set-output name=cypress_outcome::$OUTCOME"
 
       # Modificar el README.md con un badge
-      - uses: ./.github/actions
+      - uses: ./actions
         with:
           outcome: ${{ steps.generate_output.outputs.cypress_outcome }}
 
@@ -75,4 +82,3 @@ jobs:
           git add README.md
           git commit -m "Update README with Cypress test results badge"
           git push
-
