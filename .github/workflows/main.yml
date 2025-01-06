@@ -58,7 +58,7 @@ jobs:
 
       # Leer resultado y generar output
       - id: generate_output
-      - run: |
+        run: |
           OUTCOME=$(cat result.txt)
           echo "::set-output name=cypress_outcome::$OUTCOME"
 
