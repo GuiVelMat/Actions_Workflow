@@ -48,27 +48,27 @@ jobs:
 
     steps:
       # Descargar el código
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       # Descargar artefactos
-        uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v3
         with:
           name: Cypress Results
           path: result.txt
 
       # Leer resultado y generar output
-        id: generate_output
-        run: |
+      - id: generate_output
+      - run: |
           OUTCOME=$(cat result.txt)
           echo "::set-output name=cypress_outcome::$OUTCOME"
 
       # Modificar el README.md con un badge
-        uses: ./custom-actions/update-readme-badge
+      - uses: ./custom-actions/update-readme-badge
         with:
           outcome: ${{ steps.generate_output.outputs.cypress_outcome }}
 
       # Push changes
-        run: |
+      - run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
