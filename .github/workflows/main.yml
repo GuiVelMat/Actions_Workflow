@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@v2
 
       # Descargar artefactos
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: Cypress Results
           path: result.txt
@@ -63,7 +63,7 @@ jobs:
           echo "::set-output name=cypress_outcome::$OUTCOME"
 
       # Modificar el README.md con un badge
-      - uses: ./custom-actions/update-readme-badge
+      - uses: ./.github/actions
         with:
           outcome: ${{ steps.generate_output.outputs.cypress_outcome }}
 
