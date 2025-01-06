@@ -55,7 +55,7 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
-          vercel_token: ${{ secrets.VERCEL_TOKEN }}  # Token de Vercel desde los Secrets
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}  # Token de Vercel desde los Secrets
 
 
   # add_badge:
