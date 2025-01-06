@@ -43,42 +43,55 @@ jobs:
             name: Cypress Results
             path: result.txt
 
-  add_badge:
+  deploy:
     runs-on: ubuntu-latest
-    needs: cypress
-
+    needs: cypress  # Este job se ejecutará después del job de Cypress
     steps:
-      # Descargar el código
+      # Checkout del código
       - uses: actions/checkout@v2
 
-      # Descargar artefactos
-      - uses: actions/download-artifact@v4
+      # Desplegar en Vercel
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
         with:
-          name: Cypress Results
-          path: result.zip  # Se descargará como un archivo ZIP
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}  # Token de Vercel desde los Secrets
 
-      # Descomprimir el archivo ZIP
-      - run: |
-          unzip result.zip -d result  # Extraer el contenido del ZIP a la carpeta result
+  # add_badge:
+  #   runs-on: ubuntu-latest
+  #   needs: cypress
 
-      # Verificar el contenido del directorio descomprimido
-      - run: ls -l result  # Esto listará los archivos dentro de la carpeta 'result'
+  #   steps:
+  #     # Descargar el código
+  #     - uses: actions/checkout@v2
 
-      # Leer el archivo result.txt y generar el output
-      - id: generate_output
-        run: |
-          OUTCOME=$(cat result/result.txt)  # Asegúrate de que el archivo se llama result.txt
-          echo "::set-output name=cypress_outcome::$OUTCOME"
+  #     # Descargar artefactos
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Cypress Results
+  #         path: result.zip  # Se descargará como un archivo ZIP
 
-      # Modificar el README.md con un badge
-      - uses: ./actions
-        with:
-          outcome: ${{ steps.generate_output.outputs.cypress_outcome }}
+  #     # Descomprimir el archivo ZIP
+  #     - run: |
+  #         unzip result.zip -d result  # Extraer el contenido del ZIP a la carpeta result
 
-      # Push changes
-      - run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "Update README with Cypress test results badge"
-          git push
+  #     # Verificar el contenido del directorio descomprimido
+  #     - run: ls -l result  # Esto listará los archivos dentro de la carpeta 'result'
+
+  #     # Leer el archivo result.txt y generar el output
+  #     - id: generate_output
+  #       run: |
+  #         OUTCOME=$(cat result/result.txt)  # Asegúrate de que el archivo se llama result.txt
+  #         echo "::set-output name=cypress_outcome::$OUTCOME"
+
+  #     # Modificar el README.md con un badge
+  #     - uses: ./actions
+  #       with:
+  #         outcome: ${{ steps.generate_output.outputs.cypress_outcome }}
+
+  #     # Push changes
+  #     - run: |
+  #         git config --global user.name "github-actions[bot]"
+  #         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+  #         git add README.md
+  #         git commit -m "Update README with Cypress test results badge"
+  #         git push
