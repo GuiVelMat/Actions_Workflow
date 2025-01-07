@@ -38,7 +38,7 @@ Ahí añadimos el token con el nombre que queramos y le ponemos el secret para q
 4. **`Job Deploy`:**
     - Descarga el código.
     - Despliega en Vercel.
-5. **`Job Notificación`:**
+5. **`Job Notificación`:** (Actualmente la parte del email está comentada para que no de problemas con el Token de SENDGRID y he puesto un print simple, pero en principio funciona correctamente si se ponen el token en los secrets)
     - Descarga el código.
     - Define el estado de los jobs previos.
     - Envía un correo con el estado de los jobs.

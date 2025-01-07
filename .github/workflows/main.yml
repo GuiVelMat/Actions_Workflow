@@ -119,18 +119,24 @@ jobs:
           echo "CYPRESS_RESULT=${{ needs.cypress.result }}" >> $GITHUB_ENV
           echo "DEPLOY_RESULT=${{ needs.deploy.result }}" >> $GITHUB_ENV
 
+      -name: Print job results
+        run: |
+          echo "Linter result: $LINTER_RESULT"
+          echo "Cypress result: $CYPRESS_RESULT"
+          echo "Deploy result: $DEPLOY_RESULT"
+          
       # Enviar el correo con el estado de los jobs    
 
-      - name: Send notification email
-        uses: mohitk05/send-mail-action@v1
-        with:
-          to: ${{ secrets.PERSONAL_EMAIL }}
-          subject: "Resultat del workflow executat"
-          body: |
-            S'ha realitzat un push en la branca main que ha provocat l'execució del workflow amb els següents resultats:
+      # - name: Send notification email
+      #   uses: mohitk05/send-mail-action@v1
+      #   with:
+      #     to: ${{ secrets.PERSONAL_EMAIL }}
+      #     subject: "Resultat del workflow executat"
+      #     body: |
+      #       S'ha realitzat un push en la branca main que ha provocat l'execució del workflow amb els següents resultats:
             
-            - **linter_job**: $LINTER_RESULT
-            - **cypress_job**: $CYPRESS_RESULT
-            - **deploy_job**: $DEPLOY_RESULT
-        env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+      #       - **linter_job**: $LINTER_RESULT
+      #       - **cypress_job**: $CYPRESS_RESULT
+      #       - **deploy_job**: $DEPLOY_RESULT
+      #   env:
+      #     SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
