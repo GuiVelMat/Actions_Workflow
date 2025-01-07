@@ -119,12 +119,12 @@ jobs:
           echo "CYPRESS_RESULT=${{ needs.cypress.result }}" >> $GITHUB_ENV
           echo "DEPLOY_RESULT=${{ needs.deploy.result }}" >> $GITHUB_ENV
 
-      -name: Print job results
+      - name: Print job results
         run: |
           echo "Linter result: $LINTER_RESULT"
           echo "Cypress result: $CYPRESS_RESULT"
           echo "Deploy result: $DEPLOY_RESULT"
-          
+
       # Enviar el correo con el estado de los jobs    
 
       # - name: Send notification email
